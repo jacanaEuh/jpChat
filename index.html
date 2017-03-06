@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<script language="javascript" type="text/javascript" src="conexao.js"></script>
+		<script language="javascript" type="text/javascript">
+			window.setTimeout("carregaTela()",300);
+			function carregaTela(){
+				//document.getElementById("campoTexto").style.marginTop = window.innerHeight*0.9+"px";
+				document.getElementById("campoMenssagem").style.width = window.innerWidth*0.9+"px";
+				document.getElementById("campoMenssagem").style.height = window.innerHeight*0.8+"px";
+				document.getElementById("campoMenssagem").style.overflowY = "auto";
+				
+				document.getElementById("newMenssagem").style.width = window.innerWidth*0.9+"px";
+/*				for(var i=0;i<300;i++){
+					document.getElementById("campoMenssagem").innerHTML += "oi</br>";
+				}*/
+				window.onunload = function (){ alert("teste")};
+			}
+		</script>
+		<link href="css.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="campoMenssagem"></div>
+		<div id="campoTexto">
+			<input type="text" id="newMenssagem" name="newMenssagem" value="oi"><input type="button" value="Enviar" id="enviar" onClick="enviarMsg()">
+		</div>
+		<div id="desconectar">
+			<input type="button" value="Desconectar" id="desconectar" onClick="desconectar()">
+		</div>
+	</body>
+</html>

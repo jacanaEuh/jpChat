@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<script>
+			function enviar(){
+				var form;
+				var texto;
+				var iframe;
+				if(document.getElementById("iframe") != null){
+					iframe = document.getElementById("iframe");
+					if(iframe.contentDocument){
+						form = iframe.contentDocument.getElementById("enviar");
+						texto = iframe.contentDocument.getElementById("texto");
+					}else{
+						form = iframe.contentWindow.getElementById("enviar");
+						texto = iframe.contentWindow.getElementById("texto");
+					}
+					texto.value = document.getElementById("menssagem").value;
+					form.submit();
+				}else{
+					criarIFrame();
+					iframe = document.getElementById("iframe");
+					if(iframe.contentDocument){
+						form = iframe.contentDocument.getElementById("enviar");
+						texto = iframe.contentDocument.getElementById("texto");
+					}else{
+						form = iframe.contentWindow.getElementById("enviar");
+						texto = iframe.contentWindow.getElementById("texto");
+					}
+					texto.value = document.getElementById("menssagem").value;
+					form.submit();					
+				}
+			}
+			
+			function criarIFrame(){
+				var iframe;
+				iframe = document.getElementById("iframe");
+				iframe = document.createElement("iframe");
+				iframe.id = "iframe";
+				iframe.style.display = 'none';
+				iframe.src = "cliente.php";
+				document.body.appendChild(iframe);
+				//alert("Criei");
+			}
+		</script>
+	</head>
+	<body onload="criarIFrame()">
+		<div id="historico" name="historico"></div>
+		<div id="escrever" name="escrever" style="margin-top: 40%">
+			<input type="text" size="200" id="menssagem"/>
+			<input type="button" onclick="enviar()" value="enviar"/>
+		</div>
+	</body>
+</html>

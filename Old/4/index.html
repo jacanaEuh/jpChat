@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+	<head>
+		<title>Wellcome to the HiddenChat</title>
+		<script type="text/javascript">
+			window.setTimeout('validaRecebimento()',1500);
+
+			function validaEnvio(){
+				if(document.getElementById("hFrame") == null){
+					var iframe = document.createElement("iframe");
+					iframe.id="hFrame";
+					iframe.src="cliente.php";
+					document.body.appendChild(iframe);
+				}
+				window.setTimeout("enviarMenssagem()",1000);
+			}
+			
+			function enviarMenssagem(){
+				var frame = document.getElementById("hFrame");
+				var form;
+				var texto;
+				if(frame.contenteWindow){
+					form = frame.contentWindow.document.getElementById("enviarConversa");
+					texto = frame.contentWindow.document.getElementById("oculto");
+					texto.value = document.getElementById("nMenssagem").value;
+					form.submit();
+				}else{
+					form = frame.contentDocument.getElementById("enviarConversa");
+					texto = frame.contentDocument.getElementById("oculto");
+					texto.value = document.getElementById("nMenssagem").value+"%@dest:127.0.0.1:21464";
+					form.submit();
+				}
+			}
+
+			function validaRecebimento(){
+				if(document.getElementById("rFrame") == null){
+					var iframe = document.createElement("iframe");
+					iframe.id="rFrame";
+					iframe.src="cliente.php";
+					document.body.appendChild(iframe);
+				}
+				window.setTimeout("receber()",1000);
+			}
+			
+			function receber(){
+				var frame = document.getElementById("rFrame");
+				var form;
+				var texto;
+				if(frame.contenteWindow){
+					form = frame.contentWindow.document.getElementById("enviarConversa");
+					form.submit();
+				}else{
+					form = frame.contentDocument.getElementById("enviarConversa");
+					form.submit();
+				}
+				window.setTimeout('validaRecebimento()',5000);
+			}
+			
+			function escreveMensagem(){
+				alert("voltei");
+				document.getElementById("historico").innerHTML += document.getElementById("nMenssagem").value+"</br>";
+				document.getElementById("nMenssagem").value = "";
+			}
+		</script>
+	</head>
+	<body>
+		<div id="historico" name="historico" style="max-height:300px; height:300px; overflow-y:auto;">
+		</div>
+		<div id="newMenssagem" name="newMenssagem" style="max-height:60px; height:60px; overflow-y:auto;">
+			<input type="text" name="nMenssagem" id="nMenssagem" size="180px"/>
+			<input type="button" name="eMenssagem" id="eMenssagem" value="Enviar" onclick="validaEnvio()"/>
+		</div>
+	</body>
+</html>

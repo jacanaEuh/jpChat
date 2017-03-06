@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="pt-br">
+	<head>
+		<title>Wellcome to the HiddenChat</title>
+		<script type="text/javascript">
+			function start(){
+				var enviar = document.createElement("iframe");
+				enviar.id = "fEnviar";
+				enviar.src = "entregador.php";
+				document.body.appendChild(enviar);
+				
+				var receber = document.createElement("iframe");
+				receber.id = "fReceber";
+				receber.src = "cliente.php";
+				document.body.appendChild(receber);
+				
+				var conexao = document.createElement("iframe");
+				conexao.id = "fConexao";
+				conexao.src = "ouvinte.php";
+				document.body.appendChild(conexao);
+			}
+			
+			function enviarMenssagem(){
+				var frame = document.getElementById("fEnviar");
+				var form;
+				var texto;
+				if(frame.contenteWindow){
+					form = frame.contentWindow.document.getElementById("formSender");
+					texto = frame.contentWindow.document.getElementById("menssagem");
+					texto.value = document.getElementById("nMenssagem").value+"%@dest:127.0.0.1:21464";
+					form.submit();
+				}else{
+					form = frame.contentWindow.document.getElementById("formSender");
+					texto = frame.contentWindow.document.getElementById("menssagem");
+					texto.value = document.getElementById("nMenssagem").value+"%@dest:127.0.0.1:21464";
+					form.submit();
+				}
+				document.getElementById("historico").innerHTML += document.getElementById("nMenssagem").value+"</br>";
+			}
+		</script>
+	</head>
+	<body onload="start()">
+		<div id="historico" name="historico" style="max-height:300px; height:300px; overflow-y:auto;">
+		</div>
+		<div id="newMenssagem" name="newMenssagem" style="max-height:60px; height:60px; overflow-y:auto;">
+			<input type="text" name="nMenssagem" id="nMenssagem" size="180px"/>
+			<input type="button" name="eMenssagem" id="eMenssagem" value="Enviar" onclick="enviarMenssagem()"/>
+		</div>
+	</body>
+</html>
